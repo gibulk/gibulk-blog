@@ -4,9 +4,40 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin · Gibulk</title>
+  <!-- Decap CMS -->
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </head>
 <body>
-  <!-- Decap CMS Script -->
-  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
+  <script>
+    // Konfigurasi manual untuk memastikan backend terhubung
+    CMS.init({
+      config: {
+        backend: {
+          name: 'github',
+          repo: 'gibulk/gibulk-blog',
+          branch: 'main'
+        },
+        media_folder: 'src/images',
+        public_folder: '/src/images',
+        collections: [
+          {
+            name: 'blog',
+            label: 'Artikel Blog',
+            folder: 'src/posts',
+            create: true,
+            slug: '{{year}}-{{month}}-{{day}}-{{slug}}',
+            fields: [
+              { label: 'Judul', name: 'title', widget: 'string' },
+              { label: 'Tanggal', name: 'date', widget: 'datetime' },
+              { label: 'Kategori', name: 'category', widget: 'string', default: 'Opini' },
+              { label: 'Ikon', name: 'icon', widget: 'string', default: 'feather-alt' },
+              { label: 'Ringkasan', name: 'excerpt', widget: 'text' },
+              { label: 'Isi Artikel', name: 'body', widget: 'markdown' }
+            ]
+          }
+        ]
+      }
+    });
+  </script>
 </body>
 </html>
